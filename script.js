@@ -70,18 +70,18 @@ function addSGPA() {
 
 // Calculate CGPA based on SGPAs
 function calculateCGPAFromSGPA() {
-  const sgpas = document.getElementsByClassName("sgpa-input");
+  const sgpaInputs = document.getElementsByClassName("sgpa-input");
   
-  let totalSGPA = 0;
+  let totalSGPAs = 0;
   
-  // Loop through each SGPA input and compute total SGPA
-  for (let i = 0; i < sgpas.length; i++) {
-    const sgpa = parseFloat(sgpas[i].value);
-    totalSGPA += sgpa;
+  // Loop through each SGPA and compute total SGPAs
+  for (let i = 0; i < sgpaInputs.length; i++) {
+    const sgpa = parseFloat(sgpaInputs[i].value);
+    totalSGPAs += sgpa;
   }
   
-  // Compute CGPA (sum of SGPAs / number of trimesters)
-  const cgpaFromSGPA = totalSGPA / sgpas.length;
+  // Compute CGPA (sum of SGPAs / number of SGPAs)
+  const cgpaFromSGPA = totalSGPAs / sgpaInputs.length;
   
   // Display the result with 4 decimal places
   document.getElementById("result").innerText = `Your CGPA (from SGPAs) is: ${cgpaFromSGPA.toFixed(4)}`;
@@ -109,3 +109,23 @@ function calculateRequiredSGPA() {
   // Display the required SGPA with 4 decimal places
   document.getElementById("result").innerText = `You need an SGPA of ${requiredSGPA.toFixed(4)} in each of the next ${remainingTrimesters} trimester(s) to achieve your target CGPA of ${targetCgpa}.`;
 }
+
+// Switch between modes
+function switchMode(mode) {
+  // Hide all modes
+  document.getElementById("cgpaMode").style.display = "none";
+  document.getElementById("targetCgpaMode").style.display = "none";
+  document.getElementById("percentageMode").style.display = "none";
+
+  // Show the selected mode
+  if (mode === 'cgpa') {
+    document.getElementById("cgpaMode").style.display = "block";
+  } else if (mode === 'target') {
+    document.getElementById("targetCgpaMode").style.display = "block";
+  } else if (mode === 'percentage') {
+    document.getElementById("percentageMode").style.display = "block";
+  }
+}
+
+// Initialize to CGPA Mode
+window.onload = () => switchMode('cgpa');
